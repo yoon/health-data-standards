@@ -10,6 +10,7 @@ module HealthDataStandards
           @entry_class = Procedure
           @value_xpath = nil
           @ordinality_xpath = "./cda:priorityCode"
+          @incision_xpath = "./cda:entryRelationship[@typeCode='REFR']/cda:procedure[cda:code[@displayName='incision']]/cda:effectiveTime"
         end
 
         def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
@@ -18,6 +19,7 @@ module HealthDataStandards
           extract_performer(entry_element, procedure)
           extract_site(entry_element, procedure)
           extract_negation(entry_element, procedure)
+          extract_incision_time(entry_element, procedure)
           procedure
         end
 
@@ -37,6 +39,12 @@ module HealthDataStandards
 
         def extract_site(parent_element, procedure)
           procedure.site = extract_code(parent_element, "./cda:targetSiteCode")
+        end
+
+        def extract_incision_time(parent_element, procedure)
+          if parent_element.at_xpath(@incision_xpath)
+            procedure.incision_time = HL7Helper.timestamp_to_integer(parent_element.at_xpath(@incision_xpath)['value'])
+          end
         end
 
       end
