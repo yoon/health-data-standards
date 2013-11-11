@@ -31,11 +31,10 @@ module HealthDataStandards
             stratification.populations = cache_entry.build_populations
             stratification.id = cache_entry.population_ids['stratification']
             aggregate_count.stratifications << stratification
-          else
-            aggregate_count.top_level_populations = cache_entry.build_populations
-            if cache_entry.supplemental_data.present?
-              aggregate_count.supplemental_data = cache_entry.supplemental_data
-            end
+          end
+          aggregate_count.top_level_populations = cache_entry.build_populations
+          if cache_entry.supplemental_data.present?
+            aggregate_count.supplemental_data = cache_entry.supplemental_data
           end
         end
         aggregate_count
