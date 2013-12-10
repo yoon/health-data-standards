@@ -56,7 +56,7 @@ module HealthDataStandards
                                           generate_importer(CDA::ResultImporter, "//cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.34']", '2.16.840.1.113883.3.560.1.47'), #intervention result
                                           generate_importer(CDA::ResultImporter, "//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.57']", '2.16.840.1.113883.3.560.1.18'), #physical exam finding
                                           generate_importer(CDA::ResultImporter, "//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.28']", '2.16.840.1.113883.3.560.1.88'), #functional status result    
-                                          generate_importer(CDA::ResultImporter, "//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.20']", '2.16.840.1.113883.3.560.1.111'), #diagnostic study result not done
+                                          generate_importer(CDA::ResultImporter, "//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.20']", '2.16.840.1.113883.3.560.1.11'), #diagnostic study result not done
                                           generate_importer(LabResultImporter, nil, '2.16.840.1.113883.3.560.1.12')] #lab result
 
           @section_importers[:encounters] = [generate_importer(CDA::EncounterImporter, "//cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.23']", '2.16.840.1.113883.3.560.1.79', 'performed'), #encounter performed
