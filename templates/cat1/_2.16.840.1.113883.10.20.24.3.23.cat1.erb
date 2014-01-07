@@ -30,7 +30,7 @@
         <high <%= value_or_null_flavor(entry.facility.end_time) %>/>
       </time>
       <participantRole classCode="SDLOC">
-        <% if entry.facility.code['code'].present? -%>
+        <% if entry.facility.code.present? -%>
         <code code="<%= entry.facility.code['code'] %>" 
             codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.facility.code['codeSystem'] || entry.facility.code['code_system']) %>"/>
         <% else -%>

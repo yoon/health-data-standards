@@ -24,7 +24,7 @@ module HealthDataStandards
 
           data_criteria_html = udcs.map do |udc|
             entries = entries_for_data_criteria(udc['data_criteria'], patient)
-            render_data_criteria(udc, entries)          
+            render_data_criteria(udc, entries)
           end
           data_criteria_html.compact.join("\n")
         end
@@ -41,7 +41,7 @@ module HealthDataStandards
           return nil if codedValue.nil?
           valueset_oids ||=[]
           code = codedValue["code"]
-          code_system = codedValue["code_system"]
+          code_system = codedValue["code_set"] || codedValue["code_system"]
           vs_map = (value_set_map(bundle_id) || {})
           valueset_oids.each do |vs_oid|
             oid_list = (vs_map[vs_oid] || [])

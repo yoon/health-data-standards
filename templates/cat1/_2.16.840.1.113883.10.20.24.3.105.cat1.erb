@@ -26,6 +26,11 @@
             <high <%= value_or_null_flavor(entry.end_time) %>/>
         </effectiveTime>
         
+        <% if entry.route.present? -%>
+        <!-- Attribute: route -->
+        <routeCode code="<%= entry.route['code'] %>" codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.route['code_system']) %>"/>
+        <% end -%>
+        
         <!-- Attribute: dose -->
         <% if entry.dose.present? -%>
         <doseQuantity value="<%= entry.dose['value']%>"/>
