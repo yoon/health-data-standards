@@ -28,7 +28,7 @@
   </entryRelationship>
   <% population.stratifications.each do |strat| -%>
 
-  <!--  Stratificaion Reporting Template for <%= population.type %>  <%= population.id %>  Stratification <%= strat.id %>   -->
+  <!--  Stratification Reporting Template for <%= population.type %>  <%= population.id %>  Stratification <%= strat.id %>   -->
 
   <entryRelationship typeCode="COMP">
     <observation classCode="OBS" moodCode="EVN">
@@ -56,7 +56,9 @@
         </observation>
       </entryRelationship>
       <% if population.type == 'MSRPOPL' -%>
-      <%== render :partial => 'continuous_variable_value', :locals => {:population => strat} %>
+        <% observation = aggregate_count.populations.find{|p| p.type == "OBSERV"} %>
+        <% stratified_observation = observation.stratifications.find{|s| s.id == strat.id } %>
+        <%== render :partial => 'continuous_variable_value', :locals => {:population => stratified_observation, :observation => observation } %>
       <% end -%>
       <reference typeCode="REFR">
         <externalObservation classCode="OBS" moodCode="EVN">
@@ -116,7 +118,8 @@
     <% end -%>
   <% end -%>
   <% if population.type == 'MSRPOPL' -%>
-  <%== render :partial => 'continuous_variable_value', :locals => {:population => aggregate_count.populations.find{|p| p.type == "OBSERV"}}%>
+    <% observation = aggregate_count.populations.find{|p| p.type == "OBSERV"} %>
+    <%== render :partial => 'continuous_variable_value', :locals => {:population => observation, :observation => observation } %>
   <% end -%>
   <reference typeCode="REFR">
      <externalObservation classCode="OBS" moodCode="EVN">
