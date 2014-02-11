@@ -20,7 +20,7 @@ module HealthDataStandards
         end
 
         # Traverses an HL7 CDA document passed in and creates an Array of Entry
-        # objects based on what it finds                          
+        # objects based on what it finds
         # @param [Nokogiri::XML::Document] doc It is expected that the root node of this document
         #        will have the "cda" namespace registered to "urn:hl7-org:v3"
         #        measure definition
@@ -47,12 +47,9 @@ module HealthDataStandards
           if @value_xpath
             extract_value(entry_element, entry)
           end
-          entry.free_text = entry_element.at_xpath("./cda:text").try("text")
+          entry.description = entry_element.at_xpath("./cda:text").try("text")
           if @status_xpath
             extract_status(entry_element, entry)
-          end
-          if @description_xpath
-            extract_description(entry_element, entry, nrh)
           end
           entry
         end
@@ -76,7 +73,7 @@ module HealthDataStandards
           end
         end
 
-        def extract_description(parent_element, entry, nrh)
+        def extract_reason_description(parent_element, entry, nrh)
           code_elements = parent_element.xpath(@description_xpath)
           code_elements.each do |code_element|
             tag = code_element['value']
@@ -132,14 +129,14 @@ module HealthDataStandards
               unit = value_element['unit']
               entry.set_value(value.strip, unit)
             end
-            
+
           end
         end
-        
+
         def import_actor(actor_element)
           return ProviderImporter.instance.extract_provider(actor_element)
         end
-        
+
         def import_organization(organization_element)
           return OrganizationImporter.instance.extract_organization(organization_element)
         end
@@ -154,7 +151,7 @@ module HealthDataStandards
             person.family_name = name_element.at_xpath("./cda:family").try(:text)
           end
           person.addresses = person_element.xpath("./cda:addr").map { |addr| import_address(addr) }
-          person.telecoms = person_element.xpath("./cda:telecom").map { |tele| import_telecom(tele) } 
+          person.telecoms = person_element.xpath("./cda:telecom").map { |tele| import_telecom(tele) }
           return person
         end
 
@@ -163,7 +160,7 @@ module HealthDataStandards
           unless negation_indicator.nil?
             entry.negation_ind = negation_indicator.eql?('true')
             if entry.negation_ind
-              negation_reason_element = parent_element.at_xpath("./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value")
+              negation_reason_element = parent_element.at_xpath("./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value | ./cda:entryRelationship[@typeCode='RSON']/cda:act[cda:templateId/@root='2.16.840.1.113883.10.20.1.27']/cda:code")
               if negation_reason_element
                 code_system_oid = negation_reason_element['codeSystem']
                 code = negation_reason_element['code']
@@ -173,7 +170,7 @@ module HealthDataStandards
             end
           end
         end
-    
+
         def extract_code(parent_element, code_xpath, code_system=nil)
           code_element = parent_element.at_xpath(code_xpath)
           code_hash = nil

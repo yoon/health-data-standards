@@ -9,15 +9,16 @@ Gem::Specification.new do |s|
   s.authors = ["Andy Gregorowicz", "Sam Sayer", "Marc Hadley", "Rob Dingwell", "Andre Quina"]
   s.license = 'APL 2.0'
   
-  s.version = '3.3.1'
+  s.version = '3.4.2'
 
   s.add_dependency 'rest-client', '~>1.6.7'
   s.add_dependency 'erubis', '~> 2.7.0'
   s.add_dependency 'mongoid', '~> 3.1.4'
+  s.add_dependency 'mongoid-tree', '~> 1.0.4'
   s.add_dependency 'activesupport', '~> 3.2.14'
   s.add_dependency 'uuid', '~> 2.3.7'
   s.add_dependency 'builder', '~> 3.0.0'
-  s.add_dependency 'nokogiri', '~> 1.6.0'
+  s.add_dependency 'nokogiri', '1.6.0'
 
   s.add_dependency 'rubyzip', '0.9.9'
 

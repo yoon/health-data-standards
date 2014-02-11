@@ -5,7 +5,7 @@ In addition this project also contains libaries for parsing HQMF documents and f
 Environment
 ===========
 
-This project currently uses Ruby 1.9.3, Ruby 2.0.0 and JRuby 1.7.5 and is built using [Bundler](http://gembundler.com/). To get all of the dependencies for the project, first install bundler:
+This project currently uses Ruby 1.9.3, Ruby 2.0.0 and JRuby 1.7.9 and is built using [Bundler](http://gembundler.com/). To get all of the dependencies for the project, first install bundler:
 
     gem install bundler
 
@@ -25,8 +25,26 @@ Please try to follow the [GitHub Coding Style Guides](https://github.com/stylegu
 Change Log
 ==========
 
-3.3.1 - Not yet released
+3.4.2 - Not yet released
 
+* QRDA Cat I importer now imports procedure values regardless of whether the template has them at the root level or nested in an entryRelationship
+* Bug fix - Result importer will no longer double import result values
+* QRDA Cat I importer now imports encounter order end times
+* Bug fix - QRDA Cat I importer now properly imports condition and procedure ordinaltiy
+
+3.4.1 - January 24, 2014
+
+* Fix for JRuby - Nokogiri is now fixed to version 1.6.0 exactly. Version 1.6.1 was breaking the CCR part of the test suite under JRuby. Nokogiri 1.6.0 works properly across Ruby 1.9.3, Ruby 2.0.0 and JRuby 1.7.9
+
+3.4.0 - January 23, 2014
+
+* _New Feature_ - BulkRecordImporter class now available that provides the ability to import QRDA Cat I, Consolidated CDA and HITSP C32 
+* TemplateHelper now properly accepts a different directory for templates
+* QRDA Cat I importer now extracts negation on procedures
+* Implemented support to encounter transfers in QRDA Cat I import and export
+* Fixed bug where clinical trial participant would always return true on Record
+* QRDA Cat I importer now extracts ordinality and values from procedures
+* Better de-duplicating of data elements imported from QRDA Cat I
 * CDA importers now handle removal time on medical equipment
 * QRDA Cat I exporter now handles 38 week gestational period
 * Stratification fixes for QRDA Cat III export

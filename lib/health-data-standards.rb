@@ -1,6 +1,7 @@
 require 'erubis'
 require 'active_support'
 require 'mongoid'
+require 'mongoid/tree'
 require 'uuid'
 require 'builder'
 require 'csv'
@@ -65,6 +66,7 @@ require_relative 'health-data-standards/models/person'
 require_relative 'health-data-standards/models/organization'
 require_relative 'health-data-standards/models/address'
 require_relative 'health-data-standards/models/telecom'
+require_relative 'health-data-standards/models/transfer'
 require_relative 'health-data-standards/models/svs/value_set'
 require_relative 'health-data-standards/models/svs/concept'
 require_relative 'health-data-standards/models/facility'
@@ -175,6 +177,7 @@ require_relative 'health-data-standards/import/cat1/insurance_provider_importer'
 
 require_relative 'health-data-standards/import/bundle/importer'
 
+require_relative 'health-data-standards/import/bulk_record_importer'
 
 module HealthDataStandards
   class << self
